@@ -26,7 +26,7 @@ namespace ACT_Plugin
 
         public static int PLUGIN_ID = int.MaxValue;
         public static Regex REGEX_CONSIDER = new Regex(@"\\#[ABCDEF0-9]{6}You consider");
-        public static string RUNES_DEFS = "https://raw.githubusercontent.com/eq2reapp/eq2notes/main/runes.txt";
+        public static string RUNES_DEFS = "https://raw.githubusercontent.com/eq2reapp/ActWhatRune/main/runes.txt";
 
         private TabPage _pluginScreenSpace = null;
         private Label _pluginStatusText = null;
@@ -48,6 +48,8 @@ namespace ACT_Plugin
             Log("Deinitializing plugin");
             ActGlobals.oFormActMain.OnLogLineRead -= oFormActMain_OnLogLineRead;
             ActGlobals.oFormActMain.UpdateCheckClicked -= OFormActMain_UpdateCheckClicked;
+
+            _pluginStatusText.Text = "Plugin stopped";
         }
 
         public void InitPlugin(TabPage pluginScreenSpace, Label pluginStatusText)
@@ -84,6 +86,8 @@ namespace ACT_Plugin
 
         private void InitUI()
         {
+            _pluginStatusText.Text = "Plugin started";
+
             _pnlControls = new Panel();
             _pnlControls.Dock = DockStyle.Top;
 
@@ -249,7 +253,7 @@ namespace ACT_Plugin
                             else
                             {
                                 Log("  Unknown...");
-                                ActGlobals.oFormActMain.TTS("No info");
+                                ActGlobals.oFormActMain.TTS("Unknown rune");
                             }
                             ShowLog();
                         }

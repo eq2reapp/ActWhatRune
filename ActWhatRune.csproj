@@ -48,6 +48,7 @@
     <Content Include=".gitignore" />
     <Compile Include="WhatRune.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="runes.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
