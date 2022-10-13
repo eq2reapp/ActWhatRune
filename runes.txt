@@ -1,1 +1,14 @@
-﻿High Shikari Olyxa=No rune
+﻿# Castle Vacrul: Thirst for Power
+Lady of the Lute=
+Legion Captain Bloodrite=
+Gidget=
+The Bloodtender=
+Lysander Mistmoore=
+Vorigan Mistmoore=
+
+# Castle Vacrul: Haunting Presence
+The Butcher of Vacrul=
+Zarrakon=
+Lenya Thex=
+Poppet the Thrasher=
+Lord Mayong Mistmoore=Stifle rune

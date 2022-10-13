@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -122,6 +120,7 @@ namespace ACT_Plugin
 
         public void ShowLog()
         {
+            // Update the UI with a thread-safe invocation
             if (_pluginScreenSpace.InvokeRequired)
             {
                 _pluginScreenSpace.Invoke(new Action(() => ShowLog()));
@@ -145,22 +144,45 @@ namespace ACT_Plugin
             try
             {
                 string runeDefs = "";
-                using (HttpClient client = new HttpClient())
+                if (DEBUG)
                 {
-                    runeDefs = await client.GetStringAsync(RUNES_DEFS);
+                    runeDefs = File.ReadAllText(@"C:\Dev\ActWhatRune\ActWhatRune\runes.txt");
+                }
+                else
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        runeDefs = await client.GetStringAsync(RUNES_DEFS);
+                    }
                 }
                 Log("Got rune data");
 
                 foreach (string line in runeDefs.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    string[] defParts = line.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (defParts.Length == 2)
+                    if (!line.StartsWith("#"))
                     {
-                        string mobName = defParts[0].Trim();
-                        string rune = defParts[1].Trim();
-                        if (!Runes.ContainsKey(mobName))
+                        string[] defParts = line.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (defParts.Length > 0)
                         {
-                            Runes.TryAdd(mobName, rune);
+                            string mobName = defParts[0].Trim();
+
+                            string rune = "No rune";
+                            if (defParts.Length >= 2)
+                            {
+                                // Let's make this part future-proof. We'll separate info using a token: ";"
+                                string info = defParts[1];
+                                string[] infoParts = info.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                                if (infoParts.Length >= 1)
+                                {
+                                    rune = infoParts[0];
+                                }
+                            }
+
+                            // Only add the first one we find
+                            if (!Runes.ContainsKey(mobName))
+                            {
+                                Runes.TryAdd(mobName, rune);
+                            }
                         }
                     }
                 }

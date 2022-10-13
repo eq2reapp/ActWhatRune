@@ -48,7 +48,9 @@
     <Content Include=".gitignore" />
     <Compile Include="WhatRune.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="runes.txt" />
+    <Content Include="runes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

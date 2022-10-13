@@ -1,4 +1,4 @@
-﻿# ACT Wrath Math
+﻿# ACT What Rune
 
 This [Advanced Combat Tracker (ACT)](http://advancedcombattracker.com/) plugin informs you what rune to use for a given encounter!
 
