@@ -34,7 +34,7 @@ namespace ACT_Plugin
         private List<String> Logs = new List<string>();
         private ConcurrentDictionary<string, string> Runes = new ConcurrentDictionary<string, string>();
         private Timer _timerFetchRunes = new Timer();
-        private const int DELAY_ATTACH_SECONDS = 2 * 1000;
+        private const int DELAY_INIT_SECONDS = 2 * 1000;
 
         public WhatRune()
         {
@@ -61,7 +61,7 @@ namespace ACT_Plugin
             ShowLog();
 
             // Kick off a timer to do additional initialization
-            _timerFetchRunes.Interval = DELAY_ATTACH_SECONDS;
+            _timerFetchRunes.Interval = DELAY_INIT_SECONDS;
             _timerFetchRunes.Start();
 
             try
@@ -112,6 +112,7 @@ namespace ACT_Plugin
 
         public void Log(string message)
         {
+            // Need to lock the collection since both the parsing and UI threads can write to it
             lock (Logs)
             {
                 Logs.Add(String.Format("[{0}] {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), message));
@@ -169,16 +170,18 @@ namespace ACT_Plugin
                             string rune = "No rune";
                             if (defParts.Length >= 2)
                             {
-                                // Let's make this part future-proof. We'll separate info using a token: ";"
+                                // Let's make this part future-proof. We'll separate info bits using a token: ";"
                                 string info = defParts[1];
                                 string[] infoParts = info.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                // The first part is what rune to wear
                                 if (infoParts.Length >= 1)
                                 {
                                     rune = infoParts[0];
                                 }
                             }
 
-                            // Only add the first one we find
+                            // If we get duplicate mobs, only add the first one
                             if (!Runes.ContainsKey(mobName))
                             {
                                 Runes.TryAdd(mobName, rune);
