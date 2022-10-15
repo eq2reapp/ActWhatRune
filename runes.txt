@@ -14,3 +14,5 @@ Zarrakon=
 Lenya Thex=
 Poppet the Thrasher=
 Lord Mayong Mistmoore=Stifle rune
+
+Mira=test rune

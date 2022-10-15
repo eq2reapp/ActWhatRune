@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WhatRuneSettings.cs" />
     <Content Include=".gitignore" />
     <Compile Include="WhatRune.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Advanced_Combat_Tracker;
+using System.Text;
 
 namespace ACT_Plugin
 {
@@ -22,19 +23,23 @@ namespace ACT_Plugin
         public static bool DEBUG = false;
 #endif
 
-        public static int PLUGIN_ID = int.MaxValue;
-        public static Regex REGEX_CONSIDER = new Regex(@"\\#[ABCDEF0-9]{6}You consider");
+        public const int PLUGIN_ID = int.MaxValue;
+        private const int DELAY_INIT_SECONDS = 2 * 1000;
+        private const string MACRO_FILENAME = "whatrune.txt";
+
+        public static string CONSIDER_TOKEN = "You consider";
+        public static Regex REGEX_CONSIDER = new Regex(@"^(\\#[ABCDEF0-9]{6})?" + CONSIDER_TOKEN);
         public static string RUNES_DEFS = "https://raw.githubusercontent.com/eq2reapp/ActWhatRune/main/runes.txt";
 
+        private WhatRuneSettings _settings = null;
         private TabPage _pluginScreenSpace = null;
         private Label _pluginStatusText = null;
-        private Panel _pnlControls = null;
         private Button _btnFetchDefs = null;
+        private TextBox _textBoxMacro = null;
         private TextBox _textBoxLogs = null;
         private List<String> Logs = new List<string>();
         private ConcurrentDictionary<string, string> Runes = new ConcurrentDictionary<string, string>();
         private Timer _timerFetchRunes = new Timer();
-        private const int DELAY_INIT_SECONDS = 2 * 1000;
 
         public WhatRune()
         {
@@ -52,6 +57,8 @@ namespace ACT_Plugin
 
         public void InitPlugin(TabPage pluginScreenSpace, Label pluginStatusText)
         {
+            _settings = new WhatRuneSettings();
+
             _pluginScreenSpace = pluginScreenSpace;
             _pluginStatusText = pluginStatusText;
             InitUI();
@@ -62,6 +69,10 @@ namespace ACT_Plugin
 
             // Kick off a timer to do additional initialization
             _timerFetchRunes.Interval = DELAY_INIT_SECONDS;
+            if (DEBUG)
+            {
+                _timerFetchRunes.Interval = 100;
+            }
             _timerFetchRunes.Start();
 
             try
@@ -85,17 +96,48 @@ namespace ACT_Plugin
         private void InitUI()
         {
             _pluginStatusText.Text = "Plugin started";
+            _pluginScreenSpace.Text = "WhatRune";
 
-            _pnlControls = new Panel();
-            _pnlControls.Dock = DockStyle.Top;
+            Panel pnlControls = new Panel();
+            pnlControls.Dock = DockStyle.Top;
+            int y = 5;
 
-            _btnFetchDefs = new Button();
+            Label lblMacro = new Label()
+            {
+                Text = "Macro contents (rune info will replace \"$R\"):",
+                AutoSize = true,
+                Top = y
+            };
+            pnlControls.Controls.Add(lblMacro);
+            y = lblMacro.Bottom;
+
+            _textBoxMacro = new TextBox()
+            {
+                ScrollBars = ScrollBars.Both,
+                Multiline = true,
+                Height = 75,
+                Width = 400,
+                Top = y,
+                Left = 3,
+                Text = _settings.MacroCommands
+            };
+            _textBoxMacro.TextChanged -= _textBoxMacro_TextChanged;
+            _textBoxMacro.TextChanged += _textBoxMacro_TextChanged;
+            pnlControls.Controls.Add(_textBoxMacro);
+            y = _textBoxMacro.Bottom + 5;
+
+            _btnFetchDefs = new Button()
+            {
+                Text = "Refresh Definitions",
+                AutoSize = true,
+                Top = y
+            };
             _btnFetchDefs.Click -= _btnFetchDefs_Click;
             _btnFetchDefs.Click += _btnFetchDefs_Click;
-            _btnFetchDefs.Text = "Refresh Definitions";
-            _btnFetchDefs.AutoSize = true;
-            _pnlControls.Controls.Add(_btnFetchDefs);
-            _pnlControls.Height = _btnFetchDefs.Height + 4;
+            pnlControls.Controls.Add(_btnFetchDefs);
+            y = _btnFetchDefs.Bottom + 5;
+
+            pnlControls.Height = y;
 
             _textBoxLogs = new TextBox()
             {
@@ -107,7 +149,13 @@ namespace ACT_Plugin
             _pluginScreenSpace.Text = "WhatRune";
 
             _pluginScreenSpace.Controls.Add(_textBoxLogs);
-            _pluginScreenSpace.Controls.Add(_pnlControls);
+            _pluginScreenSpace.Controls.Add(pnlControls);
+        }
+
+        private void _textBoxMacro_TextChanged(object sender, EventArgs e)
+        {
+            _settings.MacroCommands = _textBoxMacro.Text;
+            _settings.SaveSettings();
         }
 
         public void Log(string message)
@@ -264,28 +312,56 @@ namespace ACT_Plugin
                     logLine = logLine.Substring(startPos + 2);
                     if (REGEX_CONSIDER.IsMatch(logLine))
                     {
-                        startPos = 21;
+                        startPos = logLine.IndexOf(CONSIDER_TOKEN) + CONSIDER_TOKEN.Length + 1;
                         int endPos = logLine.IndexOf("...", startPos);
                         if (endPos >= 0)
                         {
                             string mobName = logLine.Substring(startPos, (endPos - startPos));
                             Log("Considering " + mobName);
+                            string runeInfo = "Unknown rune";
                             if (Runes.ContainsKey(mobName))
                             {
-                                Log("  " + Runes[mobName]);
-                                ActGlobals.oFormActMain.TTS(Runes[mobName]);
+                                runeInfo = Runes[mobName];
                             }
-                            else
-                            {
-                                Log("  Unknown...");
-                                ActGlobals.oFormActMain.TTS("Unknown rune");
-                            }
+                            Log("  " + runeInfo);
+                            ActGlobals.oFormActMain.TTS(runeInfo);
+                            WriteMacroFile(runeInfo);
                             ShowLog();
                         }
                     }
                 }
             }
             catch { } // Black hole...
+        }
+
+        protected void WriteMacroFile(string runeInfo)
+        {
+            StringBuilder fileLines = new StringBuilder();
+            foreach (string line in _settings.MacroCommands.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                string fileLine = line.Trim();
+                if (!string.IsNullOrEmpty(fileLine))
+                {
+                    if (line.StartsWith("/"))
+                    {
+                        fileLine = line.Substring(1);
+                    }
+
+                    fileLine = fileLine.Replace("$R", runeInfo);
+                    fileLines.AppendLine(fileLine);
+                }
+            }
+
+            try
+            {
+                ActGlobals.oFormActMain.SendToMacroFile(MACRO_FILENAME, fileLines.ToString(), "");
+                Log("Wrote to macro file: " + Path.Combine(ActGlobals.oFormActMain.GameMacroFolder, MACRO_FILENAME));
+            }
+            catch (Exception ex)
+            {
+                Log("Failed to write macro file: " + Path.Combine(ActGlobals.oFormActMain.GameMacroFolder, MACRO_FILENAME));
+                Log(ex.Message);
+            }
         }
     }
 }
