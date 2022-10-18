@@ -20,3 +20,5 @@ The entry point for the plugin is in __WhatRune.cs__.
 
 ## Contact
 Send an in-game tell to Skyfire.Reapp if you have questions.
+
+You can also create a new item in the [issue queue](https://github.com/eq2reapp/ActWhatRune/issues), and I'll try to get to it when I notice it!
