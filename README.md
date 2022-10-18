@@ -8,6 +8,9 @@ This [Advanced Combat Tracker (ACT)](http://advancedcombattracker.com/) plugin i
 3. Click __Browse...__, and select the location where you saved the plugin
 4. Click __Add/Enable Plugin__
 
+## Configuration
+See the [Help page](https://github.com/eq2reapp/ActWhatRune/wiki/Help).
+
 ## Building
 This project was created using [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/).
 

@@ -26,10 +26,11 @@ namespace ACT_Plugin
         public const int PLUGIN_ID = int.MaxValue;
         private const int DELAY_INIT_SECONDS = 2 * 1000;
         private const string MACRO_FILENAME = "whatrune.txt";
+        public const string RUNES_DEFS = "https://raw.githubusercontent.com/eq2reapp/ActWhatRune/main/runes.txt";
+        public const string HELP_PAGE = "https://github.com/eq2reapp/ActWhatRune/wiki/Help";
 
         public static string CONSIDER_TOKEN = "You consider";
         public static Regex REGEX_CONSIDER = new Regex(@"^(\\#[ABCDEF0-9]{6})?" + CONSIDER_TOKEN);
-        public static string RUNES_DEFS = "https://raw.githubusercontent.com/eq2reapp/ActWhatRune/main/runes.txt";
 
         private WhatRuneSettings _settings = null;
         private TabPage _pluginScreenSpace = null;
@@ -135,6 +136,17 @@ namespace ACT_Plugin
             _btnFetchDefs.Click -= _btnFetchDefs_Click;
             _btnFetchDefs.Click += _btnFetchDefs_Click;
             pnlControls.Controls.Add(_btnFetchDefs);
+
+            Button btnShowHelp = new Button()
+            {
+                Text = "Show Help",
+                AutoSize = true,
+                Top = y,
+                Left = _btnFetchDefs.Right + 5
+            };
+            btnShowHelp.Click -= _btnFetchDefs_Click;
+            btnShowHelp.Click += BtnShowHelp_Click;
+            pnlControls.Controls.Add(btnShowHelp);
             y = _btnFetchDefs.Bottom + 5;
 
             pnlControls.Height = y;
@@ -150,6 +162,11 @@ namespace ACT_Plugin
 
             _pluginScreenSpace.Controls.Add(_textBoxLogs);
             _pluginScreenSpace.Controls.Add(pnlControls);
+        }
+
+        private void BtnShowHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(HELP_PAGE);
         }
 
         private void _textBoxMacro_TextChanged(object sender, EventArgs e)
