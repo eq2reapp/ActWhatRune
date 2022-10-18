@@ -1,4 +1,5 @@
-﻿obj/
+﻿.vs
+obj/
 bin/Debug
 bin/Release/*
 !bin/Release/ActWhatRune.dll

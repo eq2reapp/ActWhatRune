@@ -1,7 +1,40 @@
-﻿# Forlorn Gist: Akashic Incursion
+﻿# Karuupa Jungle: The Fading Light
+Quilliclaw=
+Glaur Xrzin=
+The Vetrovian Mantrap=
+Behemothrus=Fear rune
+Gargantuar=Fear rune
+Guabancek=
+
+# Mahngavi Wastes: The Engulfing Night
+Cewtie Irewater=
+Cliff Dweller Gadsin=
+Persepherator=
+Cewtie ?=
+Vermidicus, the Scroungling=
+Gorefus, Legion of Decay=
+Psyclis, the Undying Storm=
+Memnotum, the Everlasting Protector=
+
+# Forlorn Gist: Emerging Deceit
+Envoy to Bloodrite=
+G'Dalt Spirit-stitcher=
+The Hand of Lithania=
+The Reanimated Horror=
+Lithania Dyrmelia=
+
+# Forlorn Gist: Akashic Incursion
+Flora Maldehyde=Stifle rune
+Beulus the Claw=Stun rune
+Odelia Wretch=Fear rune
+Sister Belladonna=
+Auntie Grimm=
+Cloaked Necromancer=
+Mother Ballentree=
+Grandmother Deliria=
 
 # Castle Vacrul: Thirst for Power
-Lady of the Lute=
+Lady of the Lute=Stifle rune
 Legion Captain Bloodrite=
 Gidget=
 The Bloodtender=
@@ -14,5 +47,3 @@ Zarrakon=
 Lenya Thex=
 Poppet the Thrasher=
 Lord Mayong Mistmoore=Stifle rune
-
-Mira=test rune
