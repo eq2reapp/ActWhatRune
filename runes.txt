@@ -4,21 +4,21 @@ Glaur Xrzin=
 The Vetrovian Mantrap=
 Behemothrus=Fear rune
 Gargantuar=Fear rune
-Guabancek=
+Guabancek=Stifle rune
 
 # Mahngavi Wastes: The Engulfing Night
 Cewtie Irewater=
 Cliff Dweller Gadsin=
 Persepherator=
 Cewtie ?=
-Vermidicus, the Scroungling=
+Vermidicus, the Scroungling=Stifle rune
 Gorefus, Legion of Decay=
-Psyclis, the Undying Storm=
+Psyclis, the Undying Storm=Fear rune
 Memnotum, the Everlasting Protector=
 
 # Forlorn Gist: Emerging Deceit
 Envoy to Bloodrite=
-G'Dalt Spirit-stitcher=
+G'Dalt Spirit-stitcher=Stifle rune
 The Hand of Lithania=
 The Reanimated Horror=
 Lithania Dyrmelia=
@@ -47,3 +47,20 @@ Zarrakon=
 Lenya Thex=
 Poppet the Thrasher=
 Lord Mayong Mistmoore=Stifle rune
+
+# Fabled Veeshan's Peak
+Kluzen the Protector=Bloodbound Stun rune
+Nexona=
+Elder Ekron=
+Druusk=Bloodbound Fear rune
+Taskmaster Nichok=
+Milyex Vioren=
+Qunard Ashenclaw=Bloodbound Stun rune
+Xygoz=
+Hoshkar=
+Traverno the Skygazer=
+Silverwing=Bloodbound Fear rune
+Phara Dar=
+
+# Fabled Trakanon's Lair
+Trakanon=Stifle rune
