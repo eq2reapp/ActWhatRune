@@ -24,43 +24,41 @@ The Reanimated Horror=
 Lithania Dyrmelia=
 
 # Forlorn Gist: Akashic Incursion
-Flora Maldehyde=Stifle rune
-Beulus the Claw=Stun rune
-Odelia Wretch=Fear rune
-Sister Belladonna=
-Auntie Grimm=
+Flora Maldehyde,Flora=Stifle rune
+Beulus the Claw,Beulus=Stun rune
+Odelia Wretch,Odelia=Fear rune
+Sister Belladonna,Sister,Auntie Grimm,Auntie=
 Cloaked Necromancer=
-Mother Ballentree=
-Grandmother Deliria=
+Mother Ballentree,Mother=
+Grandmother Deliria,Grandmother=
 
 # Castle Vacrul: Thirst for Power
-Lady of the Lute=Stifle rune
-Legion Captain Bloodrite=
-Gidget=
-The Bloodtender=
-Lysander Mistmoore=
-Vorigan Mistmoore=
+Lady of the Lute,Lady=Stifle rune
+Legion Captain Bloodrite,Bloodrite,Captain=
+Gidget,The Bloodtender,Bloodtender=
+Lysander Mistmoore,Lysander=
+Vorigan Mistmoore,Vorigan=
 
 # Castle Vacrul: Haunting Presence
-The Butcher of Vacrul=
-Zarrakon=
-Lenya Thex=
-Poppet the Thrasher=
-Lord Mayong Mistmoore=Stifle rune
+The Butcher of Vacrul,Butcher=
+Zarrakon,Zarakon=
+Lenya Thex,Lenya=
+Poppet the Thrasher,Poppet=
+Lord Mayong Mistmoore,Mayong=Stifle rune
 
 # Fabled Veeshan's Peak
-Kluzen the Protector=Bloodbound Stun rune
-Nexona=
+Kluzen the Protector,Kluzen=Stun rune
+Nexona=Stun rune
 Elder Ekron=
-Druusk=Bloodbound Fear rune
-Taskmaster Nichok=
-Milyex Vioren=
-Qunard Ashenclaw=Bloodbound Stun rune
+Druushk,Drushk,Druusk=Fear rune
+Taskmaster Nichok,Nichok,Taskmaster,Task master=
+Milyex Vioren,Milyex=
+Qunard Ashenclaw,Qunard=Stun rune
 Xygoz=
 Hoshkar=
-Traverno the Skygazer=
-Silverwing=Bloodbound Fear rune
-Phara Dar=
+Travenro the Skygazer,Travenro,Traverno=
+Silverwing=Fear rune
+Phara Dar,Phara=
 
 # Fabled Trakanon's Lair
-Trakanon=Stifle rune
+Trakanon,Trak=Stifle rune

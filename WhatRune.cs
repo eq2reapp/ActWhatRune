@@ -31,6 +31,8 @@ namespace ACT_Plugin
 
         public static string CONSIDER_TOKEN = "You consider";
         public static Regex REGEX_CONSIDER = new Regex(@"^(\\#[ABCDEF0-9]{6})?" + CONSIDER_TOKEN);
+        public static string RUNE_TOKEN = "'rune ";
+        public static Regex REGEX_RUNE = new Regex(@"^Unknown command: " + RUNE_TOKEN);
 
         private WhatRuneSettings _settings = null;
         private TabPage _pluginScreenSpace = null;
@@ -230,9 +232,11 @@ namespace ACT_Plugin
                         string[] defParts = line.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
                         if (defParts.Length > 0)
                         {
-                            string mobName = defParts[0].Trim();
+                            // The part of the string on the left of "=" can be a comma separated list of aliases,
+                            // or in multi-name encounters the complete set of mob names
+                            string[] mobNames = defParts[0].Trim().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
 
-                            string rune = "No rune";
+                            string rune = "No specific rune";
                             if (defParts.Length >= 2)
                             {
                                 // Let's make this part future-proof. We'll separate info bits using a token: ";"
@@ -247,9 +251,13 @@ namespace ACT_Plugin
                             }
 
                             // If we get duplicate mobs, only add the first one
-                            if (!Runes.ContainsKey(mobName))
+                            foreach (string mobName in mobNames)
                             {
-                                Runes.TryAdd(mobName, rune);
+                                string key = mobName.ToLower();
+                                if (!Runes.ContainsKey(key))
+                                {
+                                    Runes.TryAdd(key, rune);
+                                }
                             }
                         }
                     }
@@ -320,32 +328,52 @@ namespace ACT_Plugin
         {
             // Scan for consider messages, eg:
             //   \#FFFF40You consider High Shikari Olyxa... It looks tough -and it's a LOT tougher than it looks.  Better have a lot of backup for this one!
+            // or, /rune MobName
+            //   Unknown command: 'rune Mayong'
             try
             {
+                string mobName = null;
+
                 string logLine = logInfo.logLine;
                 int startPos = logLine.IndexOf("]");
                 if (startPos >= 0)
                 {
                     logLine = logLine.Substring(startPos + 2);
+
                     if (REGEX_CONSIDER.IsMatch(logLine))
                     {
                         startPos = logLine.IndexOf(CONSIDER_TOKEN) + CONSIDER_TOKEN.Length + 1;
                         int endPos = logLine.IndexOf("...", startPos);
                         if (endPos >= 0)
                         {
-                            string mobName = logLine.Substring(startPos, (endPos - startPos));
-                            Log("Considering " + mobName);
-                            string runeInfo = "Unknown rune";
-                            if (Runes.ContainsKey(mobName))
-                            {
-                                runeInfo = Runes[mobName];
-                            }
-                            Log("  " + runeInfo);
-                            ActGlobals.oFormActMain.TTS(runeInfo);
-                            WriteMacroFile(runeInfo);
-                            ShowLog();
+                            mobName = logLine.Substring(startPos, (endPos - startPos));
                         }
                     }
+                    else if (REGEX_RUNE.IsMatch(logLine))
+                    {
+                        startPos = logLine.IndexOf(RUNE_TOKEN) + RUNE_TOKEN.Length;
+                        int endPos = logLine.LastIndexOf("'");
+                        if (endPos >= 0)
+                        {
+                            mobName = logLine.Substring(startPos, (endPos - startPos));
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(mobName))
+                {
+                    Log("Considering " + mobName);
+                    string runeInfo = "Unknown rune";
+
+                    string key = mobName.ToLower();
+                    if (Runes.ContainsKey(key))
+                    {
+                        runeInfo = Runes[key];
+                    }
+                    Log("  " + runeInfo);
+                    ActGlobals.oFormActMain.TTS(runeInfo);
+                    WriteMacroFile(runeInfo);
+                    ShowLog();
                 }
             }
             catch { } // Black hole...
