@@ -23,7 +23,7 @@ namespace ACT_Plugin
         public static bool DEBUG = false;
 #endif
 
-        public const int PLUGIN_ID = int.MaxValue;
+        public const int PLUGIN_ID = 91;
         private const int DELAY_INIT_SECONDS = 2 * 1000;
         private const string MACRO_FILENAME = "whatrune.txt";
         public const string RUNES_DEFS = "https://raw.githubusercontent.com/eq2reapp/ActWhatRune/main/runes.txt";
@@ -38,6 +38,7 @@ namespace ACT_Plugin
         private TabPage _pluginScreenSpace = null;
         private Label _pluginStatusText = null;
         private Button _btnFetchDefs = null;
+        private TextBox _textBoxDefinitions = null;
         private TextBox _textBoxMacro = null;
         private TextBox _textBoxLogs = null;
         private List<String> Logs = new List<string>();
@@ -105,6 +106,27 @@ namespace ACT_Plugin
             pnlControls.Dock = DockStyle.Top;
             int y = 5;
 
+            Label lblSource = new Label()
+            {
+                Text = "Custom definitions URL (leave empty to use default):",
+                AutoSize = true,
+                Top = y
+            };
+            pnlControls.Controls.Add(lblSource);
+            y = lblSource.Bottom;
+
+            _textBoxDefinitions = new TextBox()
+            {
+                Width = 400,
+                Top = y,
+                Left = 3,
+                Text = _settings.DefinitionsSource
+            };
+            _textBoxDefinitions.TextChanged -= _textBoxDefinitions_TextChanged;
+            _textBoxDefinitions.TextChanged += _textBoxDefinitions_TextChanged;
+            pnlControls.Controls.Add(_textBoxDefinitions);
+            y = _textBoxDefinitions.Bottom + 5;
+
             Label lblMacro = new Label()
             {
                 Text = "Macro contents (rune info will replace \"$R\"):",
@@ -171,6 +193,12 @@ namespace ACT_Plugin
             System.Diagnostics.Process.Start(HELP_PAGE);
         }
 
+        private void _textBoxDefinitions_TextChanged(object sender, EventArgs e)
+        {
+            _settings.DefinitionsSource = _textBoxDefinitions.Text;
+            _settings.SaveSettings();
+        }
+
         private void _textBoxMacro_TextChanged(object sender, EventArgs e)
         {
             _settings.MacroCommands = _textBoxMacro.Text;
@@ -208,17 +236,31 @@ namespace ACT_Plugin
         {
             Log("Fetching rune definitions...");
             Runes.Clear();
-
             try
             {
                 string runeDefs = "";
-                if (DEBUG)
+                using (HttpClient client = new HttpClient())
                 {
-                    runeDefs = File.ReadAllText(@"C:\Dev\ActWhatRune\ActWhatRune\runes.txt");
-                }
-                else
-                {
-                    using (HttpClient client = new HttpClient())
+                    if (!string.IsNullOrEmpty(_settings.DefinitionsSource))
+                    {
+                        try
+                        {
+                            if (_settings.DefinitionsSource.StartsWith("http", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                runeDefs = await client.GetStringAsync(_settings.DefinitionsSource);
+                            }
+                            else
+                            {
+                                runeDefs = File.ReadAllText(_settings.DefinitionsSource);
+                            }
+                        }
+                        catch (Exception fetchEx)
+                        {
+                            Log(fetchEx.Message);
+                            Log($"Failed to get defs from {_settings.DefinitionsSource}, attempting fallback");
+                        }
+                    }
+                    if (string.IsNullOrEmpty(runeDefs))
                     {
                         runeDefs = await client.GetStringAsync(RUNES_DEFS);
                     }

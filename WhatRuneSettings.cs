@@ -12,11 +12,13 @@ namespace ACT_Plugin
         private SettingsSerializer _xmlSettings;
 
         public string MacroCommands = "";
+        public string DefinitionsSource = "";
 
         public WhatRuneSettings()
         {
             _xmlSettings = new SettingsSerializer(this);
             _xmlSettings.AddStringSetting("MacroCommands");
+            _xmlSettings.AddStringSetting("DefinitionsSource");
 
             LoadSettings();
         }
