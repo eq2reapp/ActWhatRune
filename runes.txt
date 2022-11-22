@@ -28,7 +28,7 @@ Flora Maldehyde,Flora=Stifle rune
 Beulus the Claw,Beulus=Stun rune
 Odelia Wretch,Odelia=Fear rune
 Sister Belladonna,Sister,Auntie Grimm,Auntie=
-Cloaked Necromancer=
+The Cloaked Necromancer=
 Mother Ballentree,Mother=
 Grandmother Deliria,Grandmother=
 
