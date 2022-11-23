@@ -2,7 +2,15 @@
 
 This [Advanced Combat Tracker (ACT)](http://advancedcombattracker.com/) plugin informs you what rune to use for a given encounter!
 
-## Setup
+## Setup (recommended)
+1. Open ACT and select the `Plugins` tab
+2. Click the `Get Plugins...` button
+3. In the window that appears, select `(91) [EQ2] What Rune` and then click `Download and Enable`
+4. Follow the configuration instructions on the [Help page](https://github.com/eq2reapp/ActWhatRune/wiki/Help)
+
+![image](https://user-images.githubusercontent.com/93482228/203447274-b41b714d-8ab5-4b1b-a606-0f22dd9b0719.png)
+
+## Setup (manual)
 1. Download the plugin [ActWhatRune.dll](https://github.com/eq2reapp/ActWhatRune/blob/main/bin/Release/ActWhatRune.dll?raw=true) to a location on your hard drive
 2. Open ACT and select the __Plugins__ tab
 3. Click __Browse...__, and select the location where you saved the plugin
