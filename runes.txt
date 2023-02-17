@@ -62,3 +62,18 @@ Phara Dar,Phara=
 
 # Fabled Trakanon's Lair
 Trakanon,Trak=Stifle rune
+
+# Foundation of Knowledge
+The Delving Departed=fear rune
+
+# Terrene Threshold
+The Haunting of Tualanan=fear rune
+
+# Takish Badlands: Overgrowth
+Tawerek=stifle rune
+
+#Blood and Sand
+Khadra Chatt=stun rune
+
+# Blood and Sand
+Quartermaster Hamid=stun rune
