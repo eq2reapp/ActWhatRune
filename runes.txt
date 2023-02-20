@@ -1,4 +1,4 @@
-﻿# Karuupa Jungle: The Fading Light
+# Karuupa Jungle: The Fading Light
 Quilliclaw=
 Glaur Xrzin=
 The Vetrovian Mantrap=
@@ -64,16 +64,14 @@ Phara Dar,Phara=
 Trakanon,Trak=Stifle rune
 
 # Foundation of Knowledge
-The Delving Departed=fear rune
+The Delving Departed=Fear rune
 
 # Terrene Threshold
-The Haunting of Tualanan=fear rune
+The Haunting of Tualanan=Fear rune
 
 # Takish Badlands: Overgrowth
-Tawerek=stifle rune
-
-#Blood and Sand
-Khadra Chatt=stun rune
+Tawerek=Stifle rune
 
 # Blood and Sand
-Quartermaster Hamid=stun rune
+Khadra Chatt=Stun rune
+Quartermaster Hamid=Stun rune
