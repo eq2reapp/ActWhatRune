@@ -75,3 +75,6 @@ Tawerek=Stifle rune
 # Blood and Sand
 Khadra Chatt=Stun rune
 Quartermaster Hamid=Stun rune
+
+# Sovereign Summons
+Galeistria the Polished=Stun rune
