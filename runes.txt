@@ -78,3 +78,4 @@ Quartermaster Hamid=Stun rune
 
 # Sovereign Summons
 Galeistria the Polished=Stun rune
+Ikal-tam the Pensive=Stifle rune
