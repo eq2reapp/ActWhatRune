@@ -76,6 +76,9 @@ Tawerek=Stifle rune
 Khadra Chatt=Stun rune
 Quartermaster Hamid=Stun rune
 
+# The Delves
+Tuer'el of the Delves=Fear rune
+
 # Sovereign Summons
 Galeistria the Polished=Stun rune
 Ikal-tam the Pensive=Stifle rune
