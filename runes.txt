@@ -103,3 +103,6 @@ Monstrous Azure-Leafed Maneater=
 Monstrous Crimson-Leafed Maneater=
 Monstrous Emerald-Leafed Maneater=
 Monstrous Indigo-Leafed Maneater=
+
+# Avatars
+Bertoxxulous=Fear rune
