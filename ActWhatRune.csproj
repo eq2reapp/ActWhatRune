@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Advanced Combat Tracker">
-      <HintPath>..\..\..\EQ2\ACT\Advanced Combat Tracker.exe</HintPath>
+    <Reference Include="Advanced Combat Tracker, Version=3.6.1.277, Culture=neutral, PublicKeyToken=a946b61e93d97868, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\EQ2\ACT\Advanced Combat Tracker\Advanced Combat Tracker.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
