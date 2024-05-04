@@ -24,44 +24,44 @@ The Reanimated Horror=
 Lithania Dyrmelia=
 
 # Forlorn Gist: Akashic Incursion
-Flora Maldehyde,Flora=Stifle rune
-Beulus the Claw,Beulus=Stun rune
-Odelia Wretch,Odelia=Fear rune
-Sister Belladonna,Sister,Auntie Grimm,Auntie=
+Flora Maldehyde;Flora=Stifle rune
+Beulus the Claw;Beulus=Stun rune
+Odelia Wretch;Odelia=Fear rune
+Sister Belladonna;Sister;Auntie Grimm;Auntie=
 The Cloaked Necromancer=
-Mother Ballentree,Mother=
-Grandmother Deliria,Grandmother=
+Mother Ballentree;Mother=
+Grandmother Deliria;Grandmother=
 
 # Castle Vacrul: Thirst for Power
-Lady of the Lute,Lady=Stifle rune
-Legion Captain Bloodrite,Bloodrite,Captain=
-Gidget,The Bloodtender,Bloodtender=
-Lysander Mistmoore,Lysander=
-Vorigan Mistmoore,Vorigan=
+Lady of the Lute;Lady=Stifle rune
+Legion Captain Bloodrite;Bloodrite;Captain=
+Gidget;The Bloodtender;Bloodtender=
+Lysander Mistmoore;Lysander=
+Vorigan Mistmoore;Vorigan=
 
 # Castle Vacrul: Haunting Presence
-The Butcher of Vacrul,Butcher=
-Zarrakon,Zarakon=
-Lenya Thex,Lenya=
-Poppet the Thrasher,Poppet=
-Lord Mayong Mistmoore,Mayong=Stifle rune
+The Butcher of Vacrul;Butcher=
+Zarrakon;Zarakon=
+Lenya Thex;Lenya=
+Poppet the Thrasher;Poppet=
+Lord Mayong Mistmoore;Mayong=Stifle rune
 
 # Fabled Veeshan's Peak
-Kluzen the Protector,Kluzen=Stun rune
+Kluzen the Protector;Kluzen=Stun rune
 Nexona=Stun rune
 Elder Ekron=
-Druushk,Drushk,Druusk=Fear rune
-Taskmaster Nichok,Nichok,Taskmaster,Task master=
-Milyex Vioren,Milyex=
-Qunard Ashenclaw,Qunard=Stun rune
+Druushk;Drushk;Druusk=Fear rune
+Taskmaster Nichok;Nichok;Taskmaster;Task master=
+Milyex Vioren;Milyex=
+Qunard Ashenclaw;Qunard=Stun rune
 Xygoz=
 Hoshkar=
-Travenro the Skygazer,Travenro,Traverno=
+Travenro the Skygazer;Travenro;Traverno=
 Silverwing=Fear rune
-Phara Dar,Phara=
+Phara Dar;Phara=
 
 # Fabled Trakanon's Lair
-Trakanon,Trak=Stifle rune
+Trakanon;Trak=Stifle rune
 
 # Foundation of Knowledge
 The Delving Departed=Fear rune
@@ -76,9 +76,30 @@ Tawerek=Stifle rune
 Khadra Chatt=Stun rune
 Quartermaster Hamid=Stun rune
 
+# Chromatic Chamber
+Chromon, Titan of Colors=
+Krayte, Titan of Colors=
+Aurous the Judged=
+
+# Crested Expanse
+Chohnki=
+Chohnkasaurus=
+Chohnkanon=
+
 # The Delves
-Tuer'el of the Delves=Fear rune
+Mezkhuur=Fear rune
+Tuer'el of the Delves=
+Rouk the Lustrous=
+Rouk the Immeasurable=
+Feri'tal the Immeasurable=
 
 # Sovereign Summons
 Galeistria the Polished=Stun rune
+Chaltieu, Mirrored Sentry=
+Smol the Golden Sprite;Smol=
+Smee the Iron Sprite;Smee=
 Ikal-tam the Pensive=Stifle rune
+Monstrous Azure-Leafed Maneater=
+Monstrous Crimson-Leafed Maneater=
+Monstrous Emerald-Leafed Maneater=
+Monstrous Indigo-Leafed Maneater=

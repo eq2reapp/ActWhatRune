@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Advanced_Combat_Tracker;
 using System.Text;
+using System.Data;
+using System.Linq;
 
 namespace ACT_Plugin
 {
@@ -28,6 +30,8 @@ namespace ACT_Plugin
         private const string MACRO_FILENAME = "whatrune.txt";
         public const string RUNES_DEFS = "https://raw.githubusercontent.com/eq2reapp/ActWhatRune/main/runes.txt";
         public const string HELP_PAGE = "https://github.com/eq2reapp/ActWhatRune/wiki/Help";
+        private static char[] SECTION_DELIMITER = new char[] { '=' };
+        private static char[] TOKEN_DELIMITER = new char[] { ';' };
 
         public static string CONSIDER_TOKEN = "You consider";
         public static Regex REGEX_CONSIDER = new Regex(@"^(\\#[ABCDEF0-9]{6})?" + CONSIDER_TOKEN);
@@ -235,7 +239,7 @@ namespace ACT_Plugin
         private async Task FetchRuneDefs()
         {
             Log("Fetching rune definitions...");
-            Runes.Clear();
+            var tempDict = new Dictionary<string, string>();
             try
             {
                 string runeDefs = "";
@@ -271,19 +275,19 @@ namespace ACT_Plugin
                 {
                     if (!line.StartsWith("#"))
                     {
-                        string[] defParts = line.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] defParts = line.Split(SECTION_DELIMITER, StringSplitOptions.RemoveEmptyEntries);
                         if (defParts.Length > 0)
                         {
-                            // The part of the string on the left of "=" can be a comma separated list of aliases,
+                            // The part of the string in the mob name section can be a list of aliases,
                             // or in multi-name encounters the complete set of mob names
-                            string[] mobNames = defParts[0].Trim().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] mobNames = defParts[0].Trim().Split(TOKEN_DELIMITER, StringSplitOptions.RemoveEmptyEntries);
 
                             string rune = "No specific rune";
                             if (defParts.Length >= 2)
                             {
                                 // Let's make this part future-proof. We'll separate info bits using a token: ";"
                                 string info = defParts[1];
-                                string[] infoParts = info.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                                string[] infoParts = info.Split(TOKEN_DELIMITER, StringSplitOptions.RemoveEmptyEntries);
 
                                 // The first part is what rune to wear
                                 if (infoParts.Length >= 1)
@@ -292,17 +296,21 @@ namespace ACT_Plugin
                                 }
                             }
 
-                            // If we get duplicate mobs, only add the first one
+                            // If we get duplicate mobs, add the latter ones (more recent)
                             foreach (string mobName in mobNames)
                             {
                                 string key = mobName.ToLower();
-                                if (!Runes.ContainsKey(key))
-                                {
-                                    Runes.TryAdd(key, rune);
-                                }
+                                tempDict[key] = rune;
                             }
                         }
                     }
+                }
+                var keys = tempDict.Keys.ToArray();
+                Array.Sort(keys);
+                Runes.Clear();
+                foreach (string key in keys)
+                {
+                    Runes.TryAdd(key, tempDict[key]);
                 }
                 Log($"Found {Runes.Count} definition(s)");
             }
