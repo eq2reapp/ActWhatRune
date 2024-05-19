@@ -106,3 +106,4 @@ Monstrous Indigo-Leafed Maneater=
 
 # Avatars
 Bertoxxulous=Fear rune
+Tunare=Stun rune
