@@ -108,3 +108,4 @@ Monstrous Indigo-Leafed Maneater=
 Bertoxxulous=Fear rune
 Tunare=Stun rune
 Brell Serilis=Stifle rune
+Karana=Stifle rune
